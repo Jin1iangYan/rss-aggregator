@@ -34,6 +34,8 @@ func main() {
 	}))
 
 	v1Router := chi.NewRouter()
+	// v1Router.HandleFunc("/healthz", handlerReadiness)
+	// Scope the request method to Get
 	v1Router.Get("/healthz", handlerReadiness)
 
 	router.Mount("/v1", v1Router)
@@ -43,6 +45,7 @@ func main() {
 		Addr:    ":" + portString,
 	}
 
+	// Start the server
 	log.Printf("Server starting on port %v", portString)
 	err := srv.ListenAndServe()
 	if err != nil {
