@@ -26,13 +26,13 @@ func main() {
 	// Read server port
 	portString := os.Getenv("PORT")
 	if portString == "" {
-		panic("PORT is not found in the enviroment")
+		panic("PORT is not found in the environment")
 	}
 
 	// Read DB url
 	dbURL := os.Getenv("DB_URL")
 	if portString == "" {
-		panic("DB_URL is not found in the enviroment")
+		panic("DB_URL is not found in the environment")
 	}
 
 	// Connect the DB
@@ -63,6 +63,7 @@ func main() {
 	v1Router.Get("/healthz", handlerReadiness)
 	v1Router.Get("/err", handlerErr)
 	v1Router.Post("/users", apiCfg.handlerCreateUser)
+	v1Router.Get("/users", apiCfg.handlerGetUser)
 
 	router.Mount("/v1", v1Router)
 
