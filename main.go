@@ -37,6 +37,7 @@ func main() {
 	// v1Router.HandleFunc("/healthz", handlerReadiness)
 	// Scope the request method to Get
 	v1Router.Get("/healthz", handlerReadiness)
+	v1Router.Get("/err", handlerErr)
 
 	router.Mount("/v1", v1Router)
 
