@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/Jin1iangYan/rss-aggregator/internal/database"
 	"github.com/go-chi/chi"
@@ -41,10 +42,13 @@ func main() {
 		panic("Cant't connect to database: " + err.Error())
 	}
 
-	queries := database.New(conn)
+	db := database.New(conn)
 	apiCfg := apiConfig{
-		DB: queries,
+		DB: db,
 	}
+
+	// scrape feeds into database
+	go startScraping(db, 10, time.Minute)
 
 	router := chi.NewRouter()
 
